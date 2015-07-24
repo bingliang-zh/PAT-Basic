@@ -1,4 +1,4 @@
-PAT-Basic-Level-
+PAT-Basic-Level
 ================
 
 PAT(Basic Level)
