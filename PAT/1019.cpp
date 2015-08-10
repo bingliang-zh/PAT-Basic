@@ -1,50 +1,46 @@
 #include <iostream>
 #include <algorithm>
-#include <string>
+#include <vector>
 using namespace std;
-bool Judge_NNNN(string Num);
-string transform(string Num);
-int main()
-{
-	string Number;
-	cin>>Number;
-	if(Judge_NNNN(Number))
-	{cout<<Number<<" - "<<Number<<" = 0000"<<endl;return 0;}
-	while(Number!="6174")
-	{
-		Number=transform(Number);
-		cout<<Number<<endl;
-	}
 
+int sortNum(int num);
+void int2str(int num);
 
-
+int main() {
+	int num;
+	cin >> num;
+	do {
+		num = sortNum(num);
+	} while (num != 6174 && num != 0000);//必须要执行一步，比如6174或者0000
 	system("pause");
 	return 0;
 }
 
-bool Judge_NNNN(string Num)
-{
-	if(Num[0]==Num[1]&&Num[1]==Num[2]&&Num[2]==Num[3])
-		{return true;}
-	else return false;
+int sortNum(int num) {
+	vector<int>numbers;
+	for (int i = 0; i != 4; i++) {
+		numbers.push_back(num % 10);
+		num /= 10;
+	}
+	sort(numbers.begin(), numbers.end());
+	int smallNum = 1000 * numbers[0] + 100 * numbers[1] + 10 * numbers[2] + numbers[3];
+	int bigNum = 1000 * numbers[3] + 100 * numbers[2] + 10 * numbers[1] + numbers[0];
+	int diff = bigNum - smallNum;
+	for (int i = 0; i < 4; i++) {
+		cout << numbers[3 - i];
+	}
+	cout << " - ";
+	for (int i = 0; i < 4; i++) {
+		cout << numbers[i];
+	}
+	cout << " = ";
+	int2str(bigNum - smallNum);
+	return bigNum - smallNum;
 }
 
-string transform(string N)
-{
-	sort(N.begin(),N.end());
-	for(int i=3;i>=0;i--)
-	{cout<<N[i];}
-	cout<<" - "<<N<<" = ";
-	int temp;
-	temp=(N[3]-'0')*1000+(N[2]-'0')*100+(N[1]-'0')*10+(N[0]-'0')
-		-(N[0]-'0')*1000-(N[1]-'0')*100-(N[2]-'0')*10-(N[3]-'0');
-	string str;
-	str.push_back(temp/1000+'0');
-	temp=temp%1000;
-	str.push_back(temp/100+'0');
-	temp=temp%100;
-	str.push_back(temp/10+'0');
-	temp=temp%10;
-	str.push_back(temp+'0');
-	return str;
+void int2str(int num) {
+	if (num < 10) { cout << "000" << num << endl; }
+	else if (num < 100) { cout << "00" << num << endl; }
+	else if (num < 1000) { cout << "0" << num << endl; }
+	else { cout << num << endl; }
 }

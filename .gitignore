@@ -214,5 +214,6 @@ FakesAssemblies/
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
-*.log
-*.log
+**/*.log
+/*.sdf
+Debug
